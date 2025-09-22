@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "c971-mobile-application-development-using-c-sharp", "c971-mobile-application-development-using-c-sharp.csproj", "{0B2A1E44-A096-4B5F-A2F2-36A9BE8C9C0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B2A1E44-A096-4B5F-A2F2-36A9BE8C9C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2A1E44-A096-4B5F-A2F2-36A9BE8C9C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2A1E44-A096-4B5F-A2F2-36A9BE8C9C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2A1E44-A096-4B5F-A2F2-36A9BE8C9C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E0535C5-959A-463D-8029-FBFD427277C8}
+	EndGlobalSection
+EndGlobal
