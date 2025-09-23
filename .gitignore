@@ -1,0 +1,38 @@
+# Build output
+bin/
+obj/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+.idea/
+*.DotSettings.user
+
+# OS
+.DS_Store
+
+# MAUI mobile artifacts
+**/*.apk
+**/*.aab
+**/*.apks
+**/*.ipa
+**/*.app
+**/*.keystore
+
+# Packages
+*.nupkg
+*.snupkg
+
+# Local data / logs
+*.db
+*.db3
+*.sqlite
+*.sqlite3
+*.log
+
+# Node (if you ever add tooling)
+node_modules/
