@@ -51,7 +51,10 @@ public partial class TermsViewModel : ObservableObject
     {
     if (term is null) return;
     await Shell.Current.GoToAsync(nameof(Pages.TermDetailPage), true,
-        new() { { "Term", term } });
+        new Dictionary<string, object>
+        {
+            { "Term", term }
+        });
     }
 
 }

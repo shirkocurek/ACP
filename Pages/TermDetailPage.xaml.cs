@@ -1,11 +1,14 @@
 using c971_mobile_application_development_using_c_sharp.ViewModels;
 using c971_mobile_application_development_using_c_sharp.Models;
+using c971_mobile_application_development_using_c_sharp.Helpers; 
 
 namespace c971_mobile_application_development_using_c_sharp.Pages;
 
 [QueryProperty(nameof(Term), "Term")]
 public partial class TermDetailPage : ContentPage
 {
+    public TermDetailPage() : this(ServiceHelper.GetService<TermDetailViewModel>()) {}
+
     private readonly TermDetailViewModel _vm;
 
     public TermDetailPage(TermDetailViewModel vm)

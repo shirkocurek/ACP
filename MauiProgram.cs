@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using c971_mobile_application_development_using_c_sharp.Services;
 using c971_mobile_application_development_using_c_sharp.ViewModels;
 using c971_mobile_application_development_using_c_sharp.Pages;
+using c971_mobile_application_development_using_c_sharp.Helpers; 
 
 namespace c971_mobile_application_development_using_c_sharp;
 
@@ -40,7 +41,8 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-
+        var app = builder.Build();
+		ServiceHelper.Services = app.Services;
 		return builder.Build();
 	}
 }

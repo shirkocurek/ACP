@@ -21,9 +21,10 @@
                 <Label Text="{Binding EndDate,   StringFormat='End:   {0:d}'}" />
               </VerticalStackLayout>
               <Button Grid.Column="1"
-                      Text="View"
-                      Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCommand}"
-                      CommandParameter="{Binding}" />
+                    Text="View"
+                    Command="{Binding BindingContext.ViewCommand,
+                                      Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                    CommandParameter="{Binding .}" />
             </Grid>
           </Frame>
         </DataTemplate>
