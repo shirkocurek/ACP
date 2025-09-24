@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="c971_mobile_application_development_using_c_sharp.Pages.CourseEditPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding PageTitle}">
+  <ScrollView>
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+      <Entry Placeholder="Course Title (required)"
+             Text="{Binding Course.Title, Mode=TwoWay}" />
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+        <VerticalStackLayout>
+          <Label Text="Start Date" />
+          <DatePicker Date="{Binding Course.StartDate}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1">
+          <Label Text="End Date" />
+          <DatePicker Date="{Binding Course.EndDate}" />
+        </VerticalStackLayout>
+      </Grid>
+
+      <VerticalStackLayout>
+        <Label Text="Status" />
+        <Picker ItemsSource="{Binding StatusOptions}"
+                SelectedItem="{Binding Course.Status, Mode=TwoWay}" />
+      </VerticalStackLayout>
+
+      <Frame Padding="12">
+        <VerticalStackLayout Spacing="6">
+          <Label Text="Instructor" FontAttributes="Bold" />
+          <Entry Placeholder="Name (required)"  Text="{Binding Course.InstructorName,  Mode=TwoWay}" />
+          <Entry Placeholder="Phone (required)" Text="{Binding Course.InstructorPhone, Mode=TwoWay}" Keyboard="Telephone" />
+          <Entry Placeholder="Email (required)" Text="{Binding Course.InstructorEmail, Mode=TwoWay}" Keyboard="Email" />
+        </VerticalStackLayout>
+      </Frame>
+
+      <Label Text="Notes (optional)" />
+      <Editor AutoSize="TextChanges" Text="{Binding Course.Notes, Mode=TwoWay}" HeightRequest="100" />
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+        <Button Text="Cancel" Clicked="OnCancel" />
+        <Button Grid.Column="1" Text="{Binding SaveText}" Command="{Binding SaveCommand}" />
+      </Grid>
+
+      <Button Text="Delete" TextColor="Red" IsVisible="{Binding ShowDelete}" Command="{Binding DeleteCommand}" />
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>

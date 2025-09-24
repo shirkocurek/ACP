@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="c971_mobile_application_development_using_c_sharp.Pages.TermDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Term Details">
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="＋ Add Course" Command="{Binding AddCourseCommand}" />
+  </ContentPage.ToolbarItems>
+
+  <ScrollView>
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+      <Frame Padding="12" HasShadow="True">
+        <VerticalStackLayout Spacing="4">
+          <Label Text="{Binding Term.Title}" FontAttributes="Bold" FontSize="18" />
+          <Label Text="{Binding Term.StartDate, StringFormat='Start: {0:d}'}" />
+          <Label Text="{Binding Term.EndDate,   StringFormat='End:   {0:d}'}" />
+          <Button Text="Edit Term" Command="{Binding EditTermCommand}" />
+        </VerticalStackLayout>
+      </Frame>
+
+      <Grid ColumnDefinitions="*,Auto">
+        <Label Text="Courses" FontAttributes="Bold" />
+        <Label Grid.Column="1" Text="{Binding CourseCountText}" />
+      </Grid>
+
+      <CollectionView ItemsSource="{Binding Courses}" SelectionMode="None">
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Frame Margin="0,8" Padding="12">
+              <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <VerticalStackLayout>
+                  <Label Text="{Binding Title}" FontAttributes="Bold" />
+                  <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}" />
+                  <Label Text="{Binding EndDate,   StringFormat='End:   {0:d}'}" />
+                </VerticalStackLayout>
+                <Button Grid.Column="1" Text="Edit"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCourseCommand}"
+                        CommandParameter="{Binding}" />
+              </Grid>
+            </Frame>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>

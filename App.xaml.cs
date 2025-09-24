@@ -1,14 +1,19 @@
-﻿namespace c971_mobile_application_development_using_c_sharp;
+﻿using c971_mobile_application_development_using_c_sharp.Services;
+
+namespace c971_mobile_application_development_using_c_sharp;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
-	}
+    private readonly DatabaseService _db;
 
-	protected override Window CreateWindow(IActivationState? activationState)
-	{
-		return new Window(new AppShell());
-	}
+    public App(DatabaseService db)
+    {
+        InitializeComponent();
+
+        _db = db;
+        _ = _db.InitAsync();
+
+        MainPage = new AppShell();
+    }
 }
+
