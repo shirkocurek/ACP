@@ -12,7 +12,30 @@ public class DatabaseService
     {
         await _db.CreateTableAsync<Term>();
         await _db.CreateTableAsync<Course>();
+        await _db.CreateTableAsync<Assessment>();
+
     }
+
+    public Task<List<Assessment>> GetAssessmentsForCourseAsync(int courseId) =>
+    _db.Table<Assessment>().Where(a => a.CourseId == courseId).ToListAsync();
+
+    public async Task<(int objective, int performance)> GetAssessmentCountsAsync(int courseId)
+    {
+        var all = await GetAssessmentsForCourseAsync(courseId);
+        return (all.Count(a => a.Type == "Objective"),
+                all.Count(a => a.Type == "Performance"));
+    }
+
+    public Task<int> SaveAssessmentAsync(Assessment a) =>
+        a.Id == 0 ? _db.InsertAsync(a) : _db.UpdateAsync(a);
+
+    public Task<int> DeleteAssessmentAsync(Assessment a) =>
+        _db.DeleteAsync(a);
+
+    
+    public Task<List<Course>> GetAllCoursesAsync() =>
+        _db.Table<Course>().OrderBy(c => c.StartDate).ToListAsync();
+
 
      // Courses
     public Task<List<Course>> GetCoursesForTermAsync(int termId) =>

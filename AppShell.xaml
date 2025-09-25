@@ -4,28 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:c971_mobile_application_development_using_c_sharp.Pages"
-    Title="c971_mobile_application_development_using_c_sharp">
+    Title="Collage Tracker">
 
-    <ShellContent
-        Title="Terms"
-        ContentTemplate="{DataTemplate pages:TermsPage}"
-        Route="TermsPage" />
-
-    <ShellContent
-        Title="Term Detail"
-        ContentTemplate="{DataTemplate pages:TermDetailPage}"
-        Route="TermDetailPage" />
-
-    <ShellContent
-        Title="Edit Term"
-        ContentTemplate="{DataTemplate pages:TermEditPage}"
-        Route="TermEditPage" />
-
-    <ShellContent
-        Title="Edit Course"
-        ContentTemplate="{DataTemplate pages:CourseEditPage}"
-        Route="CourseEditPage" />
-
-
+    <TabBar>
+        <Tab Title="Terms">
+        <ShellContent Title="Terms" ContentTemplate="{DataTemplate pages:TermsPage}" Route="TermsPage" />
+        </Tab>
+        <Tab Title="Courses">
+        <ShellContent Title="Courses" ContentTemplate="{DataTemplate pages:CoursesPage}" Route="CoursesPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

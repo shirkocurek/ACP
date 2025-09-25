@@ -3,48 +3,65 @@
     x:Class="c971_mobile_application_development_using_c_sharp.Pages.TermDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:c971_mobile_application_development_using_c_sharp.Controls"
     Title="Term Details">
+  <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
 
   <ContentPage.ToolbarItems>
     <ToolbarItem Text="＋ Add Course" Command="{Binding AddCourseCommand}" />
   </ContentPage.ToolbarItems>
 
-  <ScrollView>
-    <VerticalStackLayout Padding="16" Spacing="12">
+  <Grid RowDefinitions="*,Auto" Padding="{OnPlatform iOS='0,0,0,12', Android='0'}">
 
-      <Frame Padding="12" HasShadow="True">
-        <VerticalStackLayout Spacing="4">
-          <Label Text="{Binding Term.Title}" FontAttributes="Bold" FontSize="18" />
-          <Label Text="{Binding Term.StartDate, StringFormat='Start: {0:d}'}" />
-          <Label Text="{Binding Term.EndDate,   StringFormat='End:   {0:d}'}" />
-          <Button Text="Edit Term" Command="{Binding EditTermCommand}" />
-        </VerticalStackLayout>
-      </Frame>
+    <ScrollView Grid.Row="0">
+      <VerticalStackLayout Padding="16" Spacing="12">
 
-      <Grid ColumnDefinitions="*,Auto">
-        <Label Text="Courses" FontAttributes="Bold" />
-        <Label Grid.Column="1" Text="{Binding CourseCountText}" />
-      </Grid>
+        <Frame Padding="12" HasShadow="True">
+          <VerticalStackLayout Spacing="4">
+            <Label Text="{Binding Term.Title}" FontAttributes="Bold" FontSize="18" />
+            <Label Text="{Binding Term.StartDate, StringFormat='Start: {0:d}'}" />
+            <Label Text="{Binding Term.EndDate,   StringFormat='End:   {0:d}'}" />
+            <Button Text="Edit Term" Command="{Binding EditTermCommand}" />
+          </VerticalStackLayout>
+        </Frame>
 
-      <CollectionView ItemsSource="{Binding Courses}" SelectionMode="None">
-        <CollectionView.ItemTemplate>
-          <DataTemplate>
-            <Frame Margin="0,8" Padding="12">
-              <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                <VerticalStackLayout>
-                  <Label Text="{Binding Title}" FontAttributes="Bold" />
-                  <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}" />
-                  <Label Text="{Binding EndDate,   StringFormat='End:   {0:d}'}" />
-                </VerticalStackLayout>
-                <Button Grid.Column="1" Text="Edit"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCourseCommand}"
-                        CommandParameter="{Binding}" />
-              </Grid>
-            </Frame>
-          </DataTemplate>
-        </CollectionView.ItemTemplate>
-      </CollectionView>
+        <Grid ColumnDefinitions="*,Auto">
+          <Label Text="Courses" FontAttributes="Bold" />
+          <Label Grid.Column="1" Text="{Binding CourseCountText}" />
+        </Grid>
 
-    </VerticalStackLayout>
-  </ScrollView>
+        <CollectionView ItemsSource="{Binding CourseSummaries}" SelectionMode="None">
+          <CollectionView.ItemTemplate>
+            <DataTemplate>
+              <Frame Margin="0,8" Padding="12" HasShadow="True">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
+                  <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" Grid.Row="0" Grid.ColumnSpan="3"/>
+
+                  <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}" Grid.Row="1" />
+                  <Label Text="{Binding EndDate,   StringFormat='End:   {0:d}'}" Grid.Row="1" Grid.Column="1" />
+
+                  <Label Text="{Binding Status, StringFormat='Status: {0}'}" Grid.Row="2" Grid.ColumnSpan="2" />
+                  <Label Text="{Binding Instructor, StringFormat='Instructor: {0}'}" Grid.Row="3" Grid.ColumnSpan="2" />
+                  <Label Text="{Binding AssessmentSummary, StringFormat='Assessments: {0}'}" Grid.Row="4" Grid.ColumnSpan="2" />
+
+                  <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="End" Spacing="8">
+                    <Button Text="View"
+                            Command="{Binding BindingContext.ViewCourseCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding .}" />
+                    <Button Text="Edit"
+                            Command="{Binding BindingContext.EditCourseCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding .}" />
+                  </StackLayout>
+                </Grid>
+              </Frame>
+            </DataTemplate>
+          </CollectionView.ItemTemplate>
+        </CollectionView>
+
+      </VerticalStackLayout>
+    </ScrollView>
+
+    <controls:BottomNavBar Grid.Row="1" />
+  </Grid>
 </ContentPage>
+

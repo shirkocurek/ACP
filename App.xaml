@@ -5,6 +5,20 @@
              x:Class="c971_mobile_application_development_using_c_sharp.App">
     <Application.Resources>
         <ResourceDictionary>
+            <Style x:Key="BottomNavButton" TargetType="Button">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Padding" Value="28,14" />
+                <Setter Property="CornerRadius" Value="24" />
+                <Setter Property="Margin" Value="6,0" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F1F3F5, Dark=#222}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#111, Dark=#FFF}" />
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                    <Shadow Opacity="0.15" Radius="8" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

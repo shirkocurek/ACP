@@ -30,12 +30,16 @@ public static class MauiProgram
         builder.Services.AddTransient<TermEditViewModel>();
 		builder.Services.AddTransient<TermDetailViewModel>();
 		builder.Services.AddTransient<CourseEditViewModel>();
+		builder.Services.AddTransient<CourseDetailViewModel>();
+		builder.Services.AddTransient<CoursesViewModel>();
 
         // Pages
         builder.Services.AddSingleton<TermsPage>();
         builder.Services.AddTransient<TermEditPage>();
 		builder.Services.AddTransient<TermDetailPage>();
 		builder.Services.AddTransient<CourseEditPage>();
+		builder.Services.AddTransient<CourseDetailPage>();
+		builder.Services.AddTransient<CoursesPage>();
 
 
 #if DEBUG
