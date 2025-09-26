@@ -14,6 +14,19 @@ public class DatabaseService
         await _db.CreateTableAsync<Course>();
         await _db.CreateTableAsync<Assessment>();
 
+        await EnsureColumnAsync("Course", "NotifyOnStart", "INTEGER NOT NULL DEFAULT 0");
+        await EnsureColumnAsync("Course", "NotifyOnEnd",   "INTEGER NOT NULL DEFAULT 0");
+
+    }
+
+    private async Task EnsureColumnAsync(string table, string column, string columnDDL)
+    {
+        var found = await _db.ExecuteScalarAsync<int>(
+            $"SELECT COUNT(*) FROM pragma_table_info('{table}') WHERE name = ?", column);
+        if (found == 0)
+        {
+            await _db.ExecuteAsync($"ALTER TABLE {table} ADD COLUMN {column} {columnDDL};");
+        }
     }
 
     public Task<List<Assessment>> GetAssessmentsForCourseAsync(int courseId) =>

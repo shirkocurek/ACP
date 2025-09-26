@@ -26,6 +26,23 @@
           </VerticalStackLayout>
         </Grid>
 
+        <Frame Padding="12" HasShadow="True">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Course notifications" FontAttributes="Bold" />
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <Label Text="Alert on course start" VerticalOptions="Center" />
+                <Switch Grid.Column="1" IsToggled="{Binding Course.NotifyOnStart, Mode=TwoWay}" />
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <Label Text="Alert on course end" VerticalOptions="Center" />
+                <Switch Grid.Column="1" IsToggled="{Binding Course.NotifyOnEnd, Mode=TwoWay}" />
+                </Grid>
+            </VerticalStackLayout>
+        </Frame>
+
+
         <VerticalStackLayout>
           <Label Text="Status" />
           <Picker ItemsSource="{Binding StatusOptions}"

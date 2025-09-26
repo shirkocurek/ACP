@@ -24,6 +24,8 @@ public static class MauiProgram
 		// Services
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "wgu_terms.db3");
         builder.Services.AddSingleton(new DatabaseService(dbPath));
+		builder.Services.AddSingleton<NotificationService>();
+
 
         // ViewModels
         builder.Services.AddSingleton<TermsViewModel>();

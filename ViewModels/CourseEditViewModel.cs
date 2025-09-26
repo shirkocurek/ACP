@@ -9,18 +9,23 @@ namespace c971_mobile_application_development_using_c_sharp.ViewModels;
 public partial class CourseEditViewModel : ObservableObject
 {
     private readonly DatabaseService _db;
+    private readonly NotificationService _notify;
 
     [ObservableProperty] private Course course = new();
     [ObservableProperty] private bool isNew;
 
     [ObservableProperty] private string pageTitle = "Edit Course";
-    [ObservableProperty] private string saveText  = "Save Changes";
-    [ObservableProperty] private bool showDelete  = true;
+    [ObservableProperty] private string saveText = "Save Changes";
+    [ObservableProperty] private bool showDelete = true;
 
     public List<string> StatusOptions { get; } = new()
         { "Planned", "In Progress", "Completed", "Dropped" };
 
-    public CourseEditViewModel(DatabaseService db) => _db = db;
+    public CourseEditViewModel(DatabaseService db, NotificationService notify)
+    {
+        _db = db;
+        _notify = notify;
+    }
 
     public void Initialize(bool isNewFlag)
     {
@@ -28,18 +33,18 @@ public partial class CourseEditViewModel : ObservableObject
         if (IsNew)
         {
             PageTitle = "Add Course";
-            SaveText  = "Add Course";
+            SaveText = "Add Course";
             ShowDelete = false;
 
             if (string.IsNullOrWhiteSpace(Course.Status))
                 Course.Status = "Planned";
             if (Course.StartDate == default) Course.StartDate = DateTime.Today;
-            if (Course.EndDate   == default) Course.EndDate   = DateTime.Today.AddMonths(1);
+            if (Course.EndDate == default) Course.EndDate = DateTime.Today.AddMonths(1);
         }
         else
         {
             PageTitle = "Edit Course";
-            SaveText  = "Save Changes";
+            SaveText = "Save Changes";
             ShowDelete = true;
         }
     }
@@ -47,14 +52,13 @@ public partial class CourseEditViewModel : ObservableObject
     [RelayCommand]
     public async Task SaveAsync()
     {
-        // basic validation per rubric
+        // validation
         if (string.IsNullOrWhiteSpace(Course.Title))
         { await Alert("Required", "Enter a course title."); return; }
 
         if (Course.EndDate < Course.StartDate)
         { await Alert("Dates", "End date cannot be before start date."); return; }
 
-        // Instructor must be fully specified + valid email (rubric asks to prevent null/invalid)
         if (string.IsNullOrWhiteSpace(Course.InstructorName) ||
             string.IsNullOrWhiteSpace(Course.InstructorPhone) ||
             string.IsNullOrWhiteSpace(Course.InstructorEmail))
@@ -66,6 +70,7 @@ public partial class CourseEditViewModel : ObservableObject
         try
         {
             await _db.SaveCourseAsync(Course);
+            await _notify.ScheduleCourseNotificationsAsync(Course);
             await Shell.Current.GoToAsync("..");
         }
         catch (InvalidOperationException ex) when (ex.Message.Contains("6 courses"))
@@ -75,15 +80,21 @@ public partial class CourseEditViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task DeleteAsync()
+    private async Task DeleteAsync()
     {
-        if (Course.Id == 0) { await Shell.Current.GoToAsync(".."); return; }
-        var ok = await App.Current.MainPage.DisplayAlert("Delete", $"Delete '{Course.Title}'?", "Yes", "No");
-        if (ok)
+        if (IsNew || Course.Id == 0)
         {
-            await _db.DeleteCourseAsync(Course);
             await Shell.Current.GoToAsync("..");
+            return;
         }
+
+        var confirm = await App.Current.MainPage.DisplayAlert(
+            "Delete course", $"Delete “{Course.Title}”?", "Delete", "Cancel");
+        if (!confirm) return;
+
+        await _db.DeleteCourseAsync(Course);
+        await _notify.CancelCourseNotificationsAsync(Course);
+        await Shell.Current.GoToAsync("..");
     }
 
     private static Task Alert(string title, string msg) =>

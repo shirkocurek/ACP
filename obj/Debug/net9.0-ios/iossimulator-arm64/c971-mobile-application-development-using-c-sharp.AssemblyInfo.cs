@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("c971-mobile-application-development-using-c-sharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+2cf146058e8868e7528dafbc070339f5f02be3bd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+d3696862e2d785716c858645929ae92a401cc383")]
 [assembly: System.Reflection.AssemblyProductAttribute("c971-mobile-application-development-using-c-sharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("c971-mobile-application-development-using-c-sharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

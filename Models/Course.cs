@@ -19,6 +19,6 @@ public class Course
     public string? Notes { get; set; }
 
     // For later (notifications)
-    public bool NotifyStart { get; set; }
-    public bool NotifyEnd   { get; set; }
+    public bool NotifyOnStart { get; set; } = false;
+    public bool NotifyOnEnd   { get; set; } = false;
 }

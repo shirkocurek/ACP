@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>c971-mobile-application-development-using-c-sharp</ApplicationTitle>
+		<ApplicationTitle>Collage Scheduler</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.c971mobileapplicationdevelopmentusingcsharp</ApplicationId>
