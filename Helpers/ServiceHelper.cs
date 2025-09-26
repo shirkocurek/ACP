@@ -1,11 +1,20 @@
-namespace c971_mobile_application_development_using_c_sharp.Helpers;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
-public static class ServiceHelper
+namespace c971_mobile_application_development_using_c_sharp.Helpers
 {
-    public static IServiceProvider Services { get; set; } = default!;
+    public static class ServiceHelper
+    {
+        public static IServiceProvider Services { get; private set; } = default!;
 
-    public static T GetService<T>() where T : class =>
-        Services.GetService(typeof(T)) as T
-            ?? throw new InvalidOperationException($"Service of type {typeof(T)} not registered.");
+        public static void Initialize(IServiceProvider services)
+        {
+            Services = services;
+        }
+
+        public static T GetService<T>() where T : notnull =>
+            Services.GetRequiredService<T>();
+    }
 }
+
 

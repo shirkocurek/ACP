@@ -3,6 +3,7 @@ using c971_mobile_application_development_using_c_sharp.Helpers;
 
 namespace c971_mobile_application_development_using_c_sharp.Pages;
 
+
 public partial class CoursesPage : ContentPage
 {
     public CoursesPage() : this(ServiceHelper.GetService<CoursesViewModel>()) {}
