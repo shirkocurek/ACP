@@ -40,10 +40,18 @@ public partial class CourseDetailViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(Course.Notes)) return;
 
-            await Share.RequestAsync(new ShareTextRequest
-            {
-                Title = $"Notes: {Course.Title}",
-                Text  = Course.Notes
-            });
+        await Share.RequestAsync(new ShareTextRequest
+        {
+            Title = $"Notes: {Course.Title}",
+            Text = Course.Notes
+        });
     }
+
+    [RelayCommand]
+    public async Task ManageAssessmentsAsync()
+    {
+        await Shell.Current.GoToAsync(nameof(Pages.AssessmentOverviewPage), true,
+            new() { { "Course", Course } });
+    }
+
 }

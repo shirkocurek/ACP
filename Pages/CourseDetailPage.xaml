@@ -5,69 +5,92 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:c971_mobile_application_development_using_c_sharp.Controls"
     Title="{Binding Course.Title}">
-  <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+    <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
 
-  <ContentPage.ToolbarItems>
-    <ToolbarItem Text="Edit Course" Command="{Binding EditCourseCommand}" />
-  </ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Course"
+                Command="{Binding EditCourseCommand}"/>
+    </ContentPage.ToolbarItems>
 
-  <Grid RowDefinitions="*,Auto" Padding="{OnPlatform iOS='0,0,0,12', Android='0'}">
+    <Grid RowDefinitions="*,Auto"
+            Padding="{OnPlatform iOS='0,0,0,12', Android='0'}">
 
-    <ScrollView Grid.Row="0">
-      <VerticalStackLayout Padding="16" Spacing="12">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="16"
+                    Spacing="12">
 
-        <Frame Padding="12">
-          <VerticalStackLayout Spacing="4">
-            <Label Text="Course overview" FontAttributes="Bold" />
-            <Label Text="{Binding Course.Title, StringFormat='Name: {0}'}" />
-            <Label Text="{Binding Course.StartDate, StringFormat='Start: {0:d}'}" />
-            <Label Text="{Binding Course.EndDate,   StringFormat='End:   {0:d}'}" />
-            <Label Text="{Binding Course.Status,     StringFormat='Status: {0}'}" />
-          </VerticalStackLayout>
-        </Frame>
+                <Frame Padding="12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Course overview"
+                                FontAttributes="Bold"/>
+                        <Label Text="{Binding Course.Title, StringFormat='Name: {0}'}"/>
+                        <Label Text="{Binding Course.StartDate, StringFormat='Start: {0:d}'}"/>
+                        <Label Text="{Binding Course.EndDate,   StringFormat='End:   {0:d}'}"/>
+                        <Label Text="{Binding Course.Status,     StringFormat='Status: {0}'}"/>
+                    </VerticalStackLayout>
+                </Frame>
 
-        <Frame Padding="12">
-          <VerticalStackLayout Spacing="4">
-            <Label Text="Instructor information" FontAttributes="Bold" />
-            <Label Text="{Binding Course.InstructorName,  StringFormat='Name: {0}'}" />
-            <Label Text="{Binding Course.InstructorPhone, StringFormat='Phone: {0}'}" />
-            <Label Text="{Binding Course.InstructorEmail, StringFormat='Email: {0}'}" />
-          </VerticalStackLayout>
-        </Frame>
+                <Frame Padding="12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Instructor information"
+                                FontAttributes="Bold"/>
+                        <Label Text="{Binding Course.InstructorName,  StringFormat='Name: {0}'}"/>
+                        <Label Text="{Binding Course.InstructorPhone, StringFormat='Phone: {0}'}"/>
+                        <Label Text="{Binding Course.InstructorEmail, StringFormat='Email: {0}'}"/>
+                    </VerticalStackLayout>
+                </Frame>
 
-        <Frame Padding="12">
-          <VerticalStackLayout Spacing="12">
-            <Label Text="Assessments" FontAttributes="Bold" />
-            <Frame Padding="10" CornerRadius="14">
-              <VerticalStackLayout>
-                <Label Text="Objective" FontAttributes="Bold" />
-                <Label Text="{Binding Objective.Title}" />
-                <Label Text="{Binding Objective.StartDate, StringFormat='Start: {0:d}'}" />
-                <Label Text="{Binding Objective.EndDate,   StringFormat='End:   {0:d}'}" />
-              </VerticalStackLayout>
-            </Frame>
-            <Frame Padding="10" CornerRadius="14">
-              <VerticalStackLayout>
-                <Label Text="Performance" FontAttributes="Bold" />
-                <Label Text="{Binding Performance.Title}" />
-                <Label Text="{Binding Performance.StartDate, StringFormat='Start: {0:d}'}" />
-                <Label Text="{Binding Performance.EndDate,   StringFormat='End:   {0:d}'}" />
-              </VerticalStackLayout>
-            </Frame>
-          </VerticalStackLayout>
-        </Frame>
+                <Frame Padding="12">
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Assessments"
+                                    FontAttributes="Bold"/>
+                            <Button Grid.Column="1"
+                                    Text="Manage"
+                                    Command="{Binding ManageAssessmentsCommand}"/>
+                        </Grid>
 
-        <Frame Padding="12">
-          <VerticalStackLayout Spacing="8">
-            <Label Text="Course Notes" FontAttributes="Bold" />
-            <Label Text="{Binding Course.Notes}" />
-            <Button Text="Share" Command="{Binding ShareNotesCommand}" />
-          </VerticalStackLayout>
-        </Frame>
+                        <!-- Objective -->
+                        <Frame Padding="10"
+                                CornerRadius="14">
+                            <VerticalStackLayout>
+                                <Label Text="Objective"
+                                        FontAttributes="Bold"/>
+                                <Label Text="{Binding Objective.Title, TargetNullValue='(not set)'}"/>
+                                <Label Text="{Binding Objective.StartDate, StringFormat='Start: {0:d}', TargetNullValue='Start: —'}"/>
+                                <Label Text="{Binding Objective.EndDate,   StringFormat='Due:   {0:d}', TargetNullValue='Due: —'}"/>
+                                <Label Text="{Binding Objective.Status,    StringFormat='Status: {0}', TargetNullValue='Status: —'}"/>
+                            </VerticalStackLayout>
+                        </Frame>
 
-      </VerticalStackLayout>
-    </ScrollView>
+                        <!-- Performance -->
+                        <Frame Padding="10"
+                                CornerRadius="14">
+                            <VerticalStackLayout>
+                                <Label Text="Performance"
+                                        FontAttributes="Bold"/>
+                                <Label Text="{Binding Performance.Title, TargetNullValue='(not set)'}"/>
+                                <Label Text="{Binding Performance.StartDate, StringFormat='Start: {0:d}', TargetNullValue='Start: —'}"/>
+                                <Label Text="{Binding Performance.EndDate,   StringFormat='Due:   {0:d}', TargetNullValue='Due: —'}"/>
+                                <Label Text="{Binding Performance.Status,    StringFormat='Status: {0}', TargetNullValue='Status: —'}"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Frame>
 
-    <controls:BottomNavBar Grid.Row="1" />
-  </Grid>
+                <Frame Padding="12">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Course Notes"
+                                FontAttributes="Bold"/>
+                        <Label Text="{Binding Course.Notes}"/>
+                        <Button Text="Share"
+                                Command="{Binding ShareNotesCommand}"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <controls:BottomNavBar Grid.Row="1"/>
+    </Grid>
 </ContentPage>

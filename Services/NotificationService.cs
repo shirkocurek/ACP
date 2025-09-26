@@ -11,7 +11,7 @@ public class NotificationService
     }
 
     private int CourseStartId(int courseId) => 100000 + courseId;
-    private int CourseEndId(int courseId)   => 200000 + courseId;
+    private int CourseEndId(int courseId) => 200000 + courseId;
 
     public async Task ScheduleCourseNotificationsAsync(Course course)
     {
@@ -60,4 +60,47 @@ public class NotificationService
         var local = date.Date.AddHours(9);
         return DateTime.SpecifyKind(local, DateTimeKind.Local);
     }
+
+    public async Task ScheduleAssessmentNotificationsAsync(Assessment a)
+    {
+        await CancelAssessmentNotificationsAsync(a);
+
+        if (a.NotifyOnStart)
+        {
+            var when = AtNineAM(a.StartDate);
+            if (when > DateTime.Now)
+            {
+                await LocalNotificationCenter.Current.Show(new NotificationRequest
+                {
+                    NotificationId = 300000 + a.Id,
+                    Title = $"Assessment starts: {a.Title}",
+                    Description = $"{a.Type} starts {a.StartDate:d}",
+                    Schedule = new NotificationRequestSchedule { NotifyTime = when }
+                });
+            }
+        }
+
+        if (a.NotifyOnEnd)
+        {
+            var when = AtNineAM(a.EndDate);
+            if (when > DateTime.Now)
+            {
+                await LocalNotificationCenter.Current.Show(new NotificationRequest
+                {
+                    NotificationId = 400000 + a.Id,
+                    Title = $"Assessment due: {a.Title}",
+                    Description = $"{a.Type} due {a.EndDate:d}",
+                    Schedule = new NotificationRequestSchedule { NotifyTime = when }
+                });
+            }
+        }
+    }
+
+    public Task CancelAssessmentNotificationsAsync(Assessment a)
+    {
+        LocalNotificationCenter.Current.Cancel(300000 + a.Id);
+        LocalNotificationCenter.Current.Cancel(400000 + a.Id);
+        return Task.CompletedTask;
+    }
+
 }

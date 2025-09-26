@@ -2,11 +2,26 @@ using SQLite;
 using c971_mobile_application_development_using_c_sharp.Models;
 
 namespace c971_mobile_application_development_using_c_sharp.Services;
+using System.Linq;
 
 public class DatabaseService
 {
     private readonly SQLiteAsyncConnection _db;
     public DatabaseService(string dbPath) => _db = new(dbPath);
+
+
+    public Task<Assessment?> GetAssessmentAsync(int id) =>
+        _db.Table<Assessment>()
+           .Where(a => a.Id == id)
+           .FirstOrDefaultAsync();
+
+    public async Task<(Assessment? Objective, Assessment? Performance)> GetPairForCourseAsync(int courseId)
+    {
+        var list = await GetAssessmentsForCourseAsync(courseId);
+        return (list.FirstOrDefault(a => a.Type == "Objective"),
+                list.FirstOrDefault(a => a.Type == "Performance"));
+    }
+
 
     public async Task InitAsync()
     {
@@ -15,7 +30,12 @@ public class DatabaseService
         await _db.CreateTableAsync<Assessment>();
 
         await EnsureColumnAsync("Course", "NotifyOnStart", "INTEGER NOT NULL DEFAULT 0");
-        await EnsureColumnAsync("Course", "NotifyOnEnd",   "INTEGER NOT NULL DEFAULT 0");
+        await EnsureColumnAsync("Course", "NotifyOnEnd", "INTEGER NOT NULL DEFAULT 0");
+        await EnsureColumnAsync("Assessment", "Status", "TEXT NOT NULL DEFAULT 'Planned'");
+        await EnsureColumnAsync("Assessment", "NotifyOnStart", "INTEGER NOT NULL DEFAULT 0");
+        await EnsureColumnAsync("Assessment", "NotifyOnEnd", "INTEGER NOT NULL DEFAULT 0");
+        await EnsureColumnAsync("Assessment", "Type", "TEXT NOT NULL DEFAULT 'Objective'");
+        await EnsureColumnAsync("Assessment", "Title", "TEXT NOT NULL DEFAULT ''");
 
     }
 
@@ -45,12 +65,12 @@ public class DatabaseService
     public Task<int> DeleteAssessmentAsync(Assessment a) =>
         _db.DeleteAsync(a);
 
-    
+
     public Task<List<Course>> GetAllCoursesAsync() =>
         _db.Table<Course>().OrderBy(c => c.StartDate).ToListAsync();
 
 
-     // Courses
+    // Courses
     public Task<List<Course>> GetCoursesForTermAsync(int termId) =>
         _db.Table<Course>().Where(c => c.TermId == termId).OrderBy(c => c.StartDate).ToListAsync();
 
