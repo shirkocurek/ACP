@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace c971_mobile_application_development_using_c_sharp.Pages;
 
-// Receive query params on the PAGE, then forward to the VM
 [QueryProperty(nameof(Term),  "Term")]
 [QueryProperty(nameof(IsNew), "IsNew")]
 public partial class TermEditPage : ContentPage

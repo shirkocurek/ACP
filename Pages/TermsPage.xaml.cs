@@ -19,7 +19,6 @@ public partial class TermsPage : ContentPage
     {
          base.OnAppearing();
 
-    // Ask once; subsequent calls are no-ops if already granted
     var notifier = Helpers.ServiceHelper.GetService<NotificationService>();
     await notifier.RequestPermissionAsync();
 

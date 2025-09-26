@@ -19,11 +19,9 @@ public partial class App : Application
     {
         base.OnStart();
 
-        // Ensure tables + seed demo content once
         await _db.InitAsync();
-        await _db.EnsureDemoDataAsync(); // or SeedDemoAsync() if that's your method name
+        await _db.EnsureDemoDataAsync();
 
-        // Ask for notification permission once
         var notifier = ServiceHelper.GetService<NotificationService>();
         await notifier.RequestPermissionAsync();
     }
