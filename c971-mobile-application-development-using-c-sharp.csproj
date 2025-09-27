@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>Collage Scheduler</ApplicationTitle>
+		<ApplicationTitle>College Scheduler</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.c971mobileapplicationdevelopmentusingcsharp</ApplicationId>
@@ -65,6 +65,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
 	</ItemGroup>
 
 </Project>

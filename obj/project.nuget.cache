@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wXKzSzZUrck=",
+  "dgSpecHash": "JiG2d5Lo8To=",
   "success": true,
   "projectFilePath": "/Users/sk2171/wgu/c971-mobile-application-development-using-c-sharp/c971-mobile-application-development-using-c-sharp.csproj",
   "expectedPackageFiles": [
@@ -126,11 +126,7 @@
     "/Users/sk2171/.nuget/packages/xamarin.kotlin.stdlib.jdk7/1.9.0.1/xamarin.kotlin.stdlib.jdk7.1.9.0.1.nupkg.sha512",
     "/Users/sk2171/.nuget/packages/xamarin.kotlin.stdlib.jdk8/1.9.0.1/xamarin.kotlin.stdlib.jdk8.1.9.0.1.nupkg.sha512",
     "/Users/sk2171/.nuget/packages/xamarin.kotlinx.coroutines.android/1.7.2.1/xamarin.kotlinx.coroutines.android.1.7.2.1.nupkg.sha512",
-    "/Users/sk2171/.nuget/packages/xamarin.kotlinx.coroutines.core.jvm/1.7.2.1/xamarin.kotlinx.coroutines.core.jvm.1.7.2.1.nupkg.sha512",
-    "/Users/sk2171/.nuget/packages/microsoft.ios.ref.net8.0_18.0/18.0.8324/microsoft.ios.ref.net8.0_18.0.18.0.8324.nupkg.sha512",
-    "/Users/sk2171/.nuget/packages/microsoft.ios.runtime.iossimulator-arm64.net8.0_18.0/18.0.8324/microsoft.ios.runtime.iossimulator-arm64.net8.0_18.0.18.0.8324.nupkg.sha512",
-    "/Users/sk2171/.nuget/packages/microsoft.maccatalyst.ref.net8.0_18.0/18.0.8324/microsoft.maccatalyst.ref.net8.0_18.0.18.0.8324.nupkg.sha512",
-    "/Users/sk2171/.nuget/packages/microsoft.maccatalyst.runtime.maccatalyst-arm64.net8.0_18.0/18.0.8324/microsoft.maccatalyst.runtime.maccatalyst-arm64.net8.0_18.0.18.0.8324.nupkg.sha512"
+    "/Users/sk2171/.nuget/packages/xamarin.kotlinx.coroutines.core.jvm/1.7.2.1/xamarin.kotlinx.coroutines.core.jvm.1.7.2.1.nupkg.sha512"
   ],
   "logs": []
 }

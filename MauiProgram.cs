@@ -5,6 +5,7 @@ using c971_mobile_application_development_using_c_sharp.Services;
 using c971_mobile_application_development_using_c_sharp.ViewModels;
 using c971_mobile_application_development_using_c_sharp.Pages;
 using c971_mobile_application_development_using_c_sharp.Helpers;
+using Plugin.LocalNotification;
 
 namespace c971_mobile_application_development_using_c_sharp;
 
@@ -16,6 +17,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseLocalNotification()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
