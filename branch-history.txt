@@ -1,11 +1,17 @@
-0b38060  2025-09-26 01:27:17 -0400  shir kocurek  formatted code
-e5d45af  2025-09-26 01:25:26 -0400  shir kocurek  added seed data for testing
-51e5544  2025-09-25 22:32:07 -0400  shir kocurek  added assesments view and edit view
-5cae2ed  2025-09-25 21:26:11 -0400  shir kocurek  added notification setting to course edit view page
-d369686  2025-09-24 20:56:14 -0400  shir kocurek  added a course detailed view and added buttom buttons for terms and courses
-2cf1460  2025-09-24 05:50:08 -0400  shir kocurek  added a course edit page
-eacf202  2025-09-23 22:28:52 -0400  shir kocurek  added a terms view page, terms edit view page
-7151655  2025-09-22 23:33:10 -0400  shir kocurek  set up of android emulator
-e0aae32  2025-09-21 21:18:27 -0400  shir kocurek  Added a wireframe
-2d57a48  2025-09-21 19:42:36 -0400  shir kocurek  first commit bootstrap .NET MAUI app (scaffold + packages)
-447c59d  2023-07-31 18:25:32 +0000  Matt Alexander  Initial commit
+Branch history (graph view)
+Generated: 2025-09-27T23:16:42Z
+
+* 02a9e11 (HEAD -> Working, origin/Working) fixed button button to work on small screens
+* c822bfe changed sdk version in global.json
+* ac83940 Added branch history for submission
+* 0b38060 formatted code
+* e5d45af added seed data for testing
+* 51e5544 added assessments view and edit view
+* 5cae2ed added notification setting to course edit view page
+* d369686 added a course detailed view and added button buttons for terms and courses
+* 2cf1460 added a course edit page
+* eacf202 added a terms view page, terms edit view page
+* 7151655 set up of android emulator
+* e0aae32 Added a wireframe
+* 2d57a48 first commit bootstrap .NET MAUI app (scaffold + packages)
+* 447c59d (origin/main, origin/HEAD, main) Initial commit
