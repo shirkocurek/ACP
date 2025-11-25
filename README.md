@@ -1,7 +1,6 @@
-# Create a README.md file again with the provided markdown content
-readme_content = """# Academic College Planner (C#/.NET MAUI application)
+# The Academic College Planner (C#/.NET MAUI application)
 
-Student-friendly academic tracker for **terms, courses, and assessments** with due-date setting, local notifications, and note-sharing—built with .NET MAUI and SQLite.
+Student-friendly academic tracker for **terms, courses, and assessments** with due-date setting, local notifications, and note-sharing built with .NET MAUI and SQLite.
 
 > **Why it exists:** The Academic College Planner* puts everything in one reliable mobile app with clean CRUD functionality, date pickers, and reminders that use the device OS.
 
@@ -54,10 +53,7 @@ Student-friendly academic tracker for **terms, courses, and assessments** with d
 
 ## Screenshots
 
-> Replace these with your own screenshots or remove the section.
 
-- Android buttons clipping (fixed) — before/after  
-  *(Attach images in GitHub and link them here.)*
 
 ---
 
@@ -218,7 +214,6 @@ For larger features, please open an issue first to discuss scope and alignment w
 ## License
 
 Proprietary / Educational use (default).  
-If you plan to open-source, add a proper OSI license (MIT/Apache-2.0).
 
 ---
 
