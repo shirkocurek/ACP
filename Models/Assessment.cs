@@ -2,7 +2,7 @@ using SQLite;
 
 namespace c971_mobile_application_development_using_c_sharp.Models;
 
-public class Assessment
+public partial class Assessment
 {
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
