@@ -14,6 +14,8 @@ public partial class CourseEditViewModel : ObservableObject
     [ObservableProperty] private Course course = new();
     [ObservableProperty] private bool isNew;
 
+    // honeypot field to catch bots
+    [ObservableProperty] private string? honeypot;
     [ObservableProperty] private string pageTitle = "Edit Course";
     [ObservableProperty] private string saveText = "Save Changes";
     [ObservableProperty] private bool showDelete = true;
@@ -52,6 +54,14 @@ public partial class CourseEditViewModel : ObservableObject
     [RelayCommand]
     public async Task SaveAsync()
     {
+
+        // Honeypot check and alert
+        if (!string.IsNullOrWhiteSpace(Honeypot))
+        {
+            await Alert("Error", "Something went wrong. Please try again.");
+            return;
+        }
+
         // validation
         if (string.IsNullOrWhiteSpace(Course.Title))
         { await Alert("Required", "Enter a course title."); return; }
