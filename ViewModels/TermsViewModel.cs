@@ -12,18 +12,48 @@ public partial class TermsViewModel : ObservableObject
 
     public ObservableCollection<Term> Terms { get; } = new();
 
+    private List<Term> _allTerms = new();
+
     [ObservableProperty] private bool isBusy;
+    [ObservableProperty] private string? searchText;
 
     public TermsViewModel(DatabaseService db) => _db = db;
 
     [RelayCommand]
     public async Task LoadAsync()
     {
-        if (IsBusy) return; IsBusy = true;
-        try {
-            Terms.Clear();
-            foreach (var t in await _db.GetTermsAsync()) Terms.Add(t);
-        } finally { IsBusy = false; }
+        if (IsBusy) return;
+        IsBusy = true;
+        try
+        {
+            _allTerms = await _db.GetTermsAsync();
+            ApplyFilter();
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    partial void OnSearchTextChanged(string? value) => ApplyFilter();
+
+    private void ApplyFilter()
+    {
+        var query = (SearchText ?? string.Empty).Trim();
+        IEnumerable<Term> filtered = _allTerms;
+
+        if (!string.IsNullOrEmpty(query))
+        {
+            var q = query.ToLowerInvariant();
+            filtered = _allTerms.Where(t =>
+                (t.Title ?? string.Empty).ToLowerInvariant().Contains(q)
+                || t.StartDate.ToString("d").ToLowerInvariant().Contains(q)
+                || t.EndDate.ToString("d").ToLowerInvariant().Contains(q));
+        }
+
+        Terms.Clear();
+        foreach (var t in filtered.OrderBy(t => t.StartDate))
+            Terms.Add(t);
     }
 
     [RelayCommand]
@@ -49,12 +79,8 @@ public partial class TermsViewModel : ObservableObject
     [RelayCommand]
     public async Task ViewAsync(Term? term)
     {
-    if (term is null) return;
-    await Shell.Current.GoToAsync(nameof(Pages.TermDetailPage), true,
-        new Dictionary<string, object>
-        {
-            { "Term", term }
-        });
+        if (term is null) return;
+        await Shell.Current.GoToAsync(nameof(Pages.TermDetailPage), true,
+            new Dictionary<string, object> { { "Term", term } });
     }
-
 }
