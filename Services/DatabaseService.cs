@@ -1,4 +1,3 @@
-using System.Linq;
 using SQLite;
 using c971_mobile_application_development_using_c_sharp.Models;
 
@@ -40,16 +39,13 @@ public class DatabaseService
         await EnsureColumnAsync("Assessment", "Title", "TEXT NOT NULL DEFAULT ''");
     }
 
-    // Added to satisfy MauiProgram call, delegates to your existing seeder.
     public Task EnsureDemoDataAsync() => SeedDemoAsync();
 
     public async Task SeedDemoAsync()
     {
-        // Only seed if DB is empty (no terms yet)
         var termCount = await _db.Table<Term>().CountAsync();
         if (termCount > 0) return;
 
-        // 1) Term
         var term = new Term
         {
             Title = "Fall Term 2025",
@@ -58,7 +54,6 @@ public class DatabaseService
         };
         await SaveTermAsync(term);
 
-        // 2) Course under that term (includes the required instructor info)
         var course = new Course
         {
             TermId = term.Id,
@@ -76,7 +71,6 @@ public class DatabaseService
         };
         await SaveCourseAsync(course);
 
-        // 3) Two assessments for this course (Objective + Performance)
         var objective = new Assessment
         {
             CourseId = course.Id,
@@ -103,6 +97,74 @@ public class DatabaseService
         };
         await SaveAssessmentAsync(performance);
     }
+
+    public async Task<List<ReportRow>> GetReportRowsAsync(DateTime? from = null, DateTime? to = null)
+    {
+        var start = from ?? DateTime.MinValue;
+        var end = to ?? DateTime.MaxValue;
+
+        var rows = new List<ReportRow>();
+
+        var terms = await _db.Table<Term>()
+            .Where(t => t.StartDate <= end && t.EndDate >= start)
+            .OrderBy(t => t.StartDate).ToListAsync();
+
+        foreach (var t in terms)
+        {
+            rows.Add(new ReportRow
+            {
+                Kind = "Term",
+                Title = t.Title,
+                Parent = "—",
+                StartDate = t.StartDate,
+                EndDate = t.EndDate,
+                Status = ""
+            });
+        }
+
+        var courses = await _db.Table<Course>()
+            .Where(c => c.StartDate <= end && c.EndDate >= start)
+            .OrderBy(c => c.StartDate).ToListAsync();
+
+        var termLookup = terms.ToDictionary(t => t.Id, t => t.Title);
+
+        foreach (var c in courses)
+        {
+            rows.Add(new ReportRow
+            {
+                Kind = "Course",
+                Title = c.Title,
+                Parent = termLookup.TryGetValue(c.TermId, out var tt) ? tt : "(Term?)",
+                StartDate = c.StartDate,
+                EndDate = c.EndDate,
+                Status = c.Status
+            });
+        }
+
+        var assessments = await _db.Table<Assessment>()
+            .Where(a => a.StartDate <= end && a.EndDate >= start)
+            .OrderBy(a => a.StartDate).ToListAsync();
+
+        var coursesAll = courses.Count > 0 ? courses :
+            await _db.Table<Course>().ToListAsync();
+        var courseLookup = coursesAll.ToDictionary(c => c.Id, c => c.Title);
+
+        foreach (var a in assessments)
+        {
+            rows.Add(new ReportRow
+            {
+                Kind = "Assessment",
+                Title = $"{a.Type}: {a.Title}",
+                Parent = courseLookup.TryGetValue(a.CourseId, out var ct) ? ct : "(Course?)",
+                StartDate = a.StartDate,
+                EndDate = a.EndDate,
+                Status = a.Status
+            });
+        }
+
+        return rows.OrderBy(r => r.StartDate).ToList();
+    }
+
 
     private async Task EnsureColumnAsync(string table, string column, string columnDDL)
     {
@@ -133,7 +195,6 @@ public class DatabaseService
     public Task<List<Course>> GetAllCoursesAsync() =>
         _db.Table<Course>().OrderBy(c => c.StartDate).ToListAsync();
 
-    // Courses
     public Task<List<Course>> GetCoursesForTermAsync(int termId) =>
         _db.Table<Course>().Where(c => c.TermId == termId).OrderBy(c => c.StartDate).ToListAsync();
 

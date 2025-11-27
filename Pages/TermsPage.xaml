@@ -10,11 +10,13 @@
 
   <ContentPage.ToolbarItems>
     <ToolbarItem Text="+ Add Term"
-        Command="{Binding AddCommand}"/>
+                 Command="{Binding AddCommand}"/>
+    <ToolbarItem Text="Report"
+        Command="{Binding NavigateReportCommand}"/>
   </ContentPage.ToolbarItems>
 
   <Grid RowDefinitions="Auto,*,Auto"
-      Padding="0">
+        Padding="0">
 
     <SearchBar Grid.Row="0"
                Placeholder="Search…"
@@ -28,18 +30,18 @@
                  IsRefreshing="{Binding IsBusy}"
                  Command="{Binding LoadCommand}">
       <CollectionView ItemsSource="{Binding Terms}"
-          SelectionMode="None">
+                      SelectionMode="None">
         <CollectionView.ItemTemplate>
           <DataTemplate>
             <Frame Margin="12,8"
-                Padding="12"
-                HasShadow="True">
+                   Padding="12"
+                   HasShadow="True">
               <Grid ColumnDefinitions="*,Auto"
-                  ColumnSpacing="12">
+                    ColumnSpacing="12">
                 <VerticalStackLayout>
                   <Label Text="{Binding Title}"
-                      FontAttributes="Bold"
-                      FontSize="16"/>
+                         FontAttributes="Bold"
+                         FontSize="16"/>
                   <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}"/>
                   <Label Text="{Binding EndDate,   StringFormat='End:   {0:d}'}"/>
                 </VerticalStackLayout>

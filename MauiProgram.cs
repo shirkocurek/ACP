@@ -38,6 +38,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CoursesViewModel>();
         builder.Services.AddTransient<AssessmentOverviewViewModel>();
         builder.Services.AddTransient<AssessmentEditViewModel>();
+        builder.Services.AddTransient<ReportViewModel>();
 
         // Pages
         builder.Services.AddSingleton<TermsPage>();
@@ -48,6 +49,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CoursesPage>();
         builder.Services.AddTransient<AssessmentOverviewPage>();
         builder.Services.AddTransient<AssessmentEditPage>();
+        builder.Services.AddTransient<ReportPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -57,14 +57,20 @@ public partial class TermsViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public async Task NavigateReportAsync() =>
+    await Shell.Current.GoToAsync(nameof(Pages.ReportPage));
+
+
+    [RelayCommand]
     public async Task AddAsync()
     {
-        var newTerm = new Term {
+        var newTerm = new Term
+        {
             StartDate = DateTime.Today,
-            EndDate   = DateTime.Today.AddMonths(6)
+            EndDate = DateTime.Today.AddMonths(6)
         };
         await Shell.Current.GoToAsync(nameof(Pages.TermEditPage), true,
-            new Dictionary<string, object>{{"Term", newTerm}, { "IsNew", true }});
+            new Dictionary<string, object> { { "Term", newTerm }, { "IsNew", true } });
     }
 
     [RelayCommand]
