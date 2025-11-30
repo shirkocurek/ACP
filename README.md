@@ -142,10 +142,7 @@ This project opts for a **simple, evaluator-friendly distribution**:
 ### Android: Build Signed APK
 ```bash
 dotnet publish -f net8.0-android -c Release -p:AndroidPackageFormat=apk
-# Output path is printed; rename the APK to: CollegeScheduler.apk
 ```
-> If you need a custom keystore, add `-p:AndroidKeyStore=true ...` properties or configure in your csproj/Secrets.
-
 ### Create a GitHub Release
 1. Tag the commit (e.g., `v1.0.1`).
 2. Draft a Release in GitHub.
