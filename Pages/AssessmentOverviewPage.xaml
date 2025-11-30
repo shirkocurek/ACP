@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="c971_mobile_application_development_using_c_sharp.Pages.AssessmentOverviewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Assessments">
+
+  <ScrollView>
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+      <Label Text="{Binding Course.Title, StringFormat='Course: {0}'}"
+             FontAttributes="Bold" FontSize="18" />
+
+      <!-- Objective tile -->
+      <Frame Padding="12" HasShadow="True">
+        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8" RowDefinitions="Auto,Auto,Auto,Auto">
+          <Label Text="Objective" FontAttributes="Bold" Grid.ColumnSpan="3" />
+          <Label Text="{Binding Objective.Title, TargetNullValue='(not set)'}" Grid.Row="1" Grid.ColumnSpan="3" />
+          <Label Text="{Binding Objective.StartDate, StringFormat='Start: {0:d}', TargetNullValue='Start: —'}" Grid.Row="2" />
+          <Label Text="{Binding Objective.EndDate,   StringFormat='Due:   {0:d}', TargetNullValue='Due: —'}" Grid.Row="2" Grid.Column="1" />
+
+          <StackLayout Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                       Orientation="Horizontal" Spacing="8" HorizontalOptions="End">
+            <!-- Add/Edit button with trigger on HasObjective -->
+            <Button Command="{Binding EditObjectiveCommand}">
+              <Button.Style>
+                <Style TargetType="Button">
+                  <Setter Property="Text" Value="Add" />
+                  <Style.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding HasObjective}"
+                                 Value="True">
+                      <Setter Property="Text" Value="Edit" />
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Button.Style>
+            </Button>
+
+            <!-- Delete enabled only when Objective exists -->
+            <Button Text="Delete" Command="{Binding DeleteObjectiveCommand}">
+              <Button.Style>
+                <Style TargetType="Button">
+                  <Setter Property="IsEnabled" Value="False" />
+                  <Style.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding HasObjective}"
+                                 Value="True">
+                      <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Button.Style>
+            </Button>
+          </StackLayout>
+        </Grid>
+      </Frame>
+
+      <!-- Performance tile -->
+      <Frame Padding="12" HasShadow="True">
+        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8" RowDefinitions="Auto,Auto,Auto,Auto">
+          <Label Text="Performance" FontAttributes="Bold" Grid.ColumnSpan="3" />
+          <Label Text="{Binding Performance.Title, TargetNullValue='(not set)'}" Grid.Row="1" Grid.ColumnSpan="3" />
+          <Label Text="{Binding Performance.StartDate, StringFormat='Start: {0:d}', TargetNullValue='Start: —'}" Grid.Row="2" />
+          <Label Text="{Binding Performance.EndDate,   StringFormat='Due:   {0:d}', TargetNullValue='Due: —'}" Grid.Row="2" Grid.Column="1" />
+
+          <StackLayout Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                       Orientation="Horizontal" Spacing="8" HorizontalOptions="End">
+            <Button Command="{Binding EditPerformanceCommand}">
+              <Button.Style>
+                <Style TargetType="Button">
+                  <Setter Property="Text" Value="Add" />
+                  <Style.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding HasPerformance}"
+                                 Value="True">
+                      <Setter Property="Text" Value="Edit" />
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Button.Style>
+            </Button>
+
+            <Button Text="Delete" Command="{Binding DeletePerformanceCommand}">
+              <Button.Style>
+                <Style TargetType="Button">
+                  <Setter Property="IsEnabled" Value="False" />
+                  <Style.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding HasPerformance}"
+                                 Value="True">
+                      <Setter Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Button.Style>
+            </Button>
+          </StackLayout>
+        </Grid>
+      </Frame>
+
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>

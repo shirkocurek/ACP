@@ -1,0 +1,17 @@
+Branch history (graph view)
+Generated: 2025-09-27T23:16:42Z
+
+* 02a9e11 (HEAD -> Working, origin/Working) fixed button button to work on small screens
+* c822bfe changed sdk version in global.json
+* ac83940 Added branch history for submission
+* 0b38060 formatted code
+* e5d45af added seed data for testing
+* 51e5544 added assessments view and edit view
+* 5cae2ed added notification setting to course edit view page
+* d369686 added a course detailed view and added button buttons for terms and courses
+* 2cf1460 added a course edit page
+* eacf202 added a terms view page, terms edit view page
+* 7151655 set up of android emulator
+* e0aae32 Added a wireframe
+* 2d57a48 first commit bootstrap .NET MAUI app (scaffold + packages)
+* 447c59d (origin/main, origin/HEAD, main) Initial commit

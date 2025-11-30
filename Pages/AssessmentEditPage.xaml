@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="c971_mobile_application_development_using_c_sharp.Pages.AssessmentEditPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding PageTitle}">
+
+  <ScrollView>
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+      <Entry Placeholder="Assessment Title (required)"
+             Text="{Binding Assessment.Title, Mode=TwoWay}" />
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+        <VerticalStackLayout>
+          <Label Text="Type" />
+          <Picker ItemsSource="{Binding TypeOptions}"
+                  SelectedItem="{Binding Assessment.Type, Mode=TwoWay}"
+                  IsEnabled="{Binding IsNew}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1">
+          <Label Text="Status" />
+          <Picker ItemsSource="{Binding StatusOptions}"
+                  SelectedItem="{Binding Assessment.Status, Mode=TwoWay}" />
+        </VerticalStackLayout>
+      </Grid>
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+        <VerticalStackLayout>
+          <Label Text="Start Date" />
+          <DatePicker Date="{Binding Assessment.StartDate}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1">
+          <Label Text="Due Date" />
+          <DatePicker Date="{Binding Assessment.EndDate}" />
+        </VerticalStackLayout>
+      </Grid>
+
+      <Frame Padding="12" HasShadow="True">
+        <VerticalStackLayout Spacing="8">
+          <Label Text="Notifications" FontAttributes="Bold" />
+          <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+            <Label Text="Alert at start" VerticalOptions="Center" />
+            <Switch Grid.Column="1" IsToggled="{Binding Assessment.NotifyOnStart, Mode=TwoWay}" />
+          </Grid>
+          <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+            <Label Text="Alert at due date" VerticalOptions="Center" />
+            <Switch Grid.Column="1" IsToggled="{Binding Assessment.NotifyOnEnd, Mode=TwoWay}" />
+          </Grid>
+        </VerticalStackLayout>
+      </Frame>
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+        <Button Text="Cancel" Clicked="OnCancel" />
+        <Button Grid.Column="1" Text="{Binding SaveText}" Command="{Binding SaveCommand}" />
+      </Grid>
+
+      <Button Text="Delete" TextColor="Red"
+              IsVisible="{Binding ShowDelete}"
+              Command="{Binding DeleteCommand}" />
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>

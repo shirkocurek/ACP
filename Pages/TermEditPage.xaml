@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="c971_mobile_application_development_using_c_sharp.Pages.TermEditPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:c971_mobile_application_development_using_c_sharp.Controls"
+    Title="{Binding PageTitle}">
+  <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+
+  <Grid RowDefinitions="*,Auto" Padding="{OnPlatform iOS='0,0,0,12', Android='0'}">
+
+    <ScrollView Grid.Row="0">
+      <VerticalStackLayout Padding="16" Spacing="12">
+        <Label Text="{Binding PageTitle}" FontAttributes="Bold" />
+
+        <Entry Placeholder="Term Title (required)"
+               Text="{Binding Term.Title, Mode=TwoWay}" />
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+          <VerticalStackLayout>
+            <Label Text="Start Date" />
+            <DatePicker Date="{Binding Term.StartDate}" />
+          </VerticalStackLayout>
+          <VerticalStackLayout Grid.Column="1">
+            <Label Text="End Date" />
+            <DatePicker Date="{Binding Term.EndDate}" />
+          </VerticalStackLayout>
+        </Grid>
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+          <Button Text="Cancel" Clicked="OnCancel" />
+          <Button Grid.Column="1" Text="{Binding SaveText}" Command="{Binding SaveCommand}" />
+        </Grid>
+
+        <Button Text="Delete" TextColor="Red" IsVisible="{Binding ShowDelete}" Command="{Binding DeleteCommand}" />
+      </VerticalStackLayout>
+    </ScrollView>
+
+    <controls:BottomNavBar Grid.Row="1" />
+  </Grid>
+</ContentPage>

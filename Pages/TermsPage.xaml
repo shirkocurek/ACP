@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+  x:Class="c971_mobile_application_development_using_c_sharp.Pages.TermsPage"
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:controls="clr-namespace:c971_mobile_application_development_using_c_sharp.Controls"
+  Title="Academic Terms">
+
+  <Shell.TabBarIsVisible>false</Shell.TabBarIsVisible>
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="+ Add Term"
+                 Command="{Binding AddCommand}"/>
+    <ToolbarItem Text="Report"
+        Command="{Binding NavigateReportCommand}"/>
+  </ContentPage.ToolbarItems>
+
+  <Grid RowDefinitions="Auto,*,Auto"
+        Padding="0">
+
+    <SearchBar Grid.Row="0"
+               Placeholder="Search…"
+               Text="{Binding SearchText}"
+               BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#FFFFFF}"
+               TextColor="{AppThemeBinding Light=#111111, Dark=#111111}"
+               PlaceholderColor="{AppThemeBinding Light=#6B7280, Dark=#6B7280}"
+               CancelButtonColor="{AppThemeBinding Light=#2563EB, Dark=#2563EB}"/>
+
+    <RefreshView Grid.Row="1"
+                 IsRefreshing="{Binding IsBusy}"
+                 Command="{Binding LoadCommand}">
+      <CollectionView ItemsSource="{Binding Terms}"
+                      SelectionMode="None">
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Frame Margin="12,8"
+                   Padding="12"
+                   HasShadow="True">
+              <Grid ColumnDefinitions="*,Auto"
+                    ColumnSpacing="12">
+                <VerticalStackLayout>
+                  <Label Text="{Binding Title}"
+                         FontAttributes="Bold"
+                         FontSize="16"/>
+                  <Label Text="{Binding StartDate, StringFormat='Start: {0:d}'}"/>
+                  <Label Text="{Binding EndDate,   StringFormat='End:   {0:d}'}"/>
+                </VerticalStackLayout>
+
+                <Button Grid.Column="1"
+                        Text="View"
+                        Command="{Binding BindingContext.ViewCommand,
+                                          Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                        CommandParameter="{Binding .}"/>
+              </Grid>
+            </Frame>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </RefreshView>
+
+    <controls:BottomNavBar Grid.Row="2"/>
+  </Grid>
+</ContentPage>

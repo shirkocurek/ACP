@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="c971_mobile_application_development_using_c_sharp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:c971_mobile_application_development_using_c_sharp.Pages"
+    Title="Collage Tracker">
+
+    <TabBar>
+        <Tab Title="Terms">
+        <ShellContent Title="Terms" ContentTemplate="{DataTemplate pages:TermsPage}" Route="TermsPage" />
+        </Tab>
+        <Tab Title="Courses">
+        <ShellContent Title="Courses" ContentTemplate="{DataTemplate pages:CoursesPage}" Route="CoursesPage" />
+        </Tab>
+    </TabBar>
+
+</Shell>
