@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide for Initial Setup & Running the Application</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+        pre code {
+            background-color: transparent;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        .intro {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        .step {
+            margin-bottom: 25px;
+        }
+        .substep {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+        .expect {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 10px 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .expect strong {
+            color: #155724;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Guide for Initial Setup & Running the Application</h1>
+        
+        <div class="intro">
+            <p>This guide is for maintainers of the Academic College Planner. It covers environment setup, routine operations, run, seed, and build as well as publishing updates to APK and GitHub Pages.</p>
+        </div>
+
+        <div class="step">
+            <h2>1) Install and Verify Dependencies</h2>
+            <p>Install and verify the following dependencies:</p>
+            
+            <h3>.NET 8 SDK</h3>
+            <pre><code>dotnet --version
+dotnet --info</code></pre>
+
+            <h3>.NET MAUI workloads</h3>
+            <pre><code>dotnet workload install maui
+dotnet workload list</code></pre>
+
+            <ul>
+                <li><strong>Android:</strong> Install Android Studio, create an emulator, and enable USB debugging for devices.</li>
+                <li><strong>iOS (macOS):</strong> Install Xcode and iOS Simulator.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>2) Get the Source Code</h2>
+            <p>Run the following commands:</p>
+            <pre><code>git clone https://github.com/shirkocurek/ACP
+cd ACP
+dotnet restore
+dotnet build -c Debug</code></pre>
+            <div class="expect">
+                <strong>EXPECT:</strong> Build succeeded.
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>3) Run the App</h2>
+            
+            <div class="substep">
+                <h3>a. For Android run:</h3>
+                <p>Start an emulator in Android Studio (AVD Manager) or plug in a device.</p>
+                <pre><code>dotnet build -t:Run -f net8.0-android</code></pre>
+            </div>
+
+            <div class="substep">
+                <h3>b. For iOS (macOS) run:</h3>
+                <pre><code>dotnet build -t:Run -f net8.0-ios</code></pre>
+            </div>
+
+            <div class="expect">
+                <strong>EXPECT:</strong> App opens to the Terms view, and the seed data appears on first run.
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>4) Bump Version & Changelog</h2>
+            <ul>
+                <li>Update app version (csproj/AssemblyInfo as appropriate).</li>
+                <li>Update CHANGELOG.md with features/fixes.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>5) Build a Signed Android APK</h2>
+            <pre><code>dotnet publish -f net8.0-android -c Release -p:AndroidPackageFormat=apk</code></pre>
+            <ul>
+                <li>Locate the output path printed in the console.</li>
+                <li>Optional: Rename the artifact to <code>AcademicCollegePlanner.apk</code>.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>6) Create a GitHub Release</h2>
+            <ul>
+                <li>Open the releases page on GitHub and click 'draft new release.'</li>
+                <li>Tag the commit with a version number <code>v1.0.2</code>.</li>
+                <li>Upload <code>AcademicCollegePlanner.apk</code> to the dependencies section on the release draft.</li>
+                <li>Add concise notes (features, fixes, or any known issues).</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>7) Publish/Update the Landing Page on GitHub Pages</h2>
+            <ul>
+                <li>Go to Settings, then navigate to Pages and verify that Source = <code>main</code> and Folder = <code>/docs</code>.</li>
+                <li>Edit <code>/docs/index.html</code> to link to the latest Release asset.</li>
+                <li>Commit changes and let Pages deploy.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>8) Verify Release</h2>
+            <ul>
+                <li>Install the new APK on the emulator/device.</li>
+                <li>Run core flows: add/edit/delete Term/Course/Assessments. Validate dates and enable notifications.</li>
+                <li>Confirm that the Docs landing page download link works.</li>
+                <li>Confirm that the CHANGELOG is accurate.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>9) Rollback (If Needed)</h2>
+            <ul>
+                <li>Point the landing page link back to a prior Release APK.</li>
+                <li>Note the rollback in the CHANGELOG.md file.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>10) Minimal Test Pass Coverage</h2>
+            <pre><code>dotnet test tests/CollegeScheduler.Tests.csproj</code></pre>
+            <div class="expect">
+                <strong>EXPECT:</strong> All tests should pass and show green.
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>11) Quick Troubleshooting</h2>
+            <ul>
+                <li><strong>No devices found:</strong> Run <code>adb devices</code> to start an emulator in AVD Manager.</li>
+                <li><strong>Black screen/crash:</strong> Run <code>dotnet clean</code> and <code>dotnet build</code>.</li>
+                <li><strong>Pages 404 on APK:</strong> Ensure the APK is attached to the latest Release and the <code>/docs/index.html</code> URL matches.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
