@@ -163,10 +163,6 @@ dotnet publish -f net8.0-android -c Release -p:AndroidPackageFormat=apk
 - **Integration** (seed → create → edit → remove; verify date constraints and pickers).
 - **Devices**: iOS Simulator, Android Emulator, and at least one physical Android device for notifications.
 
-Deliverables:
-- `docs/Test-Checklist.md` (scenarios + pass/fail)
-- `CHANGELOG.md` (what changed in each release)
-
 ---
 
 ## Troubleshooting
@@ -222,3 +218,7 @@ Proprietary / Educational use (default).
 - Everyone who tested and provided feedback 🙌
 
 ---
+
+## Changelog
+
+See [CHANGELOG.md](./docs/CHANGELOG.md). Each GitHub Release references the matching entry.
