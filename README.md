@@ -8,7 +8,6 @@ Student-friendly academic tracker for **terms, courses, and assessments** with d
 
 ## Table of Contents
 - [Features](#features)
-- [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
 - [Getting Started](#getting-started)
@@ -19,7 +18,6 @@ Student-friendly academic tracker for **terms, courses, and assessments** with d
   - [Seeding Demo Data](#seeding-demo-data)
 - [Notifications](#notifications)
 - [Building a Release & Publishing](#building-a-release--publishing)
-- [Testing](#testing)
 - [Project Structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
 - [Roadmap](#roadmap)
@@ -32,28 +30,17 @@ Student-friendly academic tracker for **terms, courses, and assessments** with d
 ## Features
 
 - **Terms, Courses, Assessments (CRUD)**
-  - Add/edit/delete terms, courses, and two assessment types: *Objective* and *Performance*.
-  - Validation: prevents null saves; ensures end dates are not before start dates.
-  - Pickers: date pickers for all start/end fields; status picker (Planned/In Progress/Completed/Dropped).
+  - Add/edit/delete terms, courses, and two assessment types: Objective and Performance.
+  - Validation that prevents null saves and ensures end dates are not before start dates.
+  - Pickers: date pickers for all start/end fields and a status picker for classes/assessments.
 
 - **Instructor Details & Notes**
-  - Store instructor name, phone, and email (with email validation).
+  - Store instructor name, phone, and email.
   - Add optional course notes and **share** via the system share sheet (email/SMS).
 
 - **Local Notifications (Device OS)**
   - Opt-in alerts for **start** and **end** dates on courses and assessments.
-  - Uses the phone’s native notification framework; no server required.
-
-- **Usability Tweaks**
-  - Cleaner list views (view first; edit/delete within details).
-  - “Manage Assessments” entry point from the course details page.
-  - Seeded demo data for quick evaluation.
-
----
-
-## Screenshots
-
-
+  - Uses the phone’s native notification framework.
 
 ---
 
@@ -81,7 +68,7 @@ Student-friendly academic tracker for **terms, courses, and assessments** with d
 ## Getting Started
 
 ### Prerequisites
-- **.NET SDK 8** (project uses `global.json` to pin to 8.x)
+- **.NET SDK 8**
 - **MAUI Workloads** installed:
   ```bash
   dotnet workload install maui
@@ -94,11 +81,11 @@ Student-friendly academic tracker for **terms, courses, and assessments** with d
 dotnet --version
 dotnet --info
 ```
-If multiple SDKs are installed, ensure `global.json` points to an 8.0 SDK (e.g., `8.0.100`) with `rollForward` set appropriately.
+If multiple SDKs are installed, ensure `global.json` points to an 8.0 SDK with `rollForward` set appropriately.
 
 ### Clone & Configure
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/shirkocurek/ACP
 cd c971-mobile-application-development-using-c-sharp
 ```
 
@@ -116,7 +103,7 @@ dotnet build -t:Run -f net8.0-android
 ### Seeding Demo Data
 On first run, the app creates tables and **seeds**:
 - 1 term (“Fall Term …”),
-- 1 course with instructor **Anika Patel** (555-123-4567, anika.patel@strimeuniversity.edu),
+- 1 course with instructor,
 - Objective + Performance assessments.
 
 If you previously installed the app and don’t see seed data, **uninstall** the app from the emulator/device and run again.
@@ -153,15 +140,6 @@ dotnet publish -f net8.0-android -c Release -p:AndroidPackageFormat=apk
 1. Enable Pages for branch `main` and folder `/docs`.
 2. Add `/docs/index.html` linking to the **latest APK** on the Releases page, plus quick install steps and a short FAQ.
 3. Commit & wait a minute for Pages to deploy.
-
----
-
-## Testing
-
-- **Unit/Component checks** (view models, validators, date rules).
-- **Manual flows** (add/edit/delete across Terms/Courses/Assessments; share notes; notification prompt and scheduling).
-- **Integration** (seed → create → edit → remove; verify date constraints and pickers).
-- **Devices**: iOS Simulator, Android Emulator, and at least one physical Android device for notifications.
 
 ---
 
