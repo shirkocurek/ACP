@@ -32,6 +32,8 @@
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -40,6 +42,21 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Exclude tests no matter how they’re named or nested -->
+		<Compile Remove="tests\**\*.cs" />
+		<Compile Remove="**\tests\**\*.cs" />
+		<Compile Remove="**\Tests\**\*.cs" />
+		<Compile Remove="obj\**\*.cs" />
+		<Compile Remove="bin\**\*.cs" />
+
+		<!-- Extra safety: exclude their build outputs just in case -->
+		<Compile Remove="tests\obj\**\*.cs" />
+		<Compile Remove="tests\bin\**\*.cs" />
+		<Compile Remove="**\tests\obj\**\*.cs" />
+		<Compile Remove="**\tests\bin\**\*.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
