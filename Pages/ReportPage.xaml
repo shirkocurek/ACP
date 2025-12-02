@@ -5,89 +5,130 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Report">
 
-    <VerticalStackLayout Padding="16"
-            Spacing="12">
+    <!-- ============ Responsive Templates ============ -->
+    <ContentPage.Resources>
 
-        <Label Text="{Binding ReportTitle}"
-                FontAttributes="Bold"
-                FontSize="20"/>
-        <Label Text="{Binding GeneratedAt}"
-                FontSize="12"
-                TextColor="#666"/>
+        <!-- Tablet/Desktop: your original 6-column row -->
+        <DataTemplate x:Key="TabletRowTemplate">
+            <Grid Padding="8" ColumnDefinitions="80,*,*,120,120,100">
+                <Label Text="{Binding Kind}" />
+                <Label Grid.Column="1" Text="{Binding Title}" LineBreakMode="TailTruncation" />
+                <Label Grid.Column="2" Text="{Binding Parent}" LineBreakMode="TailTruncation" />
+                <Label Grid.Column="3" Text="{Binding StartDate, StringFormat='{0:d}'}" />
+                <Label Grid.Column="4" Text="{Binding EndDate,   StringFormat='{0:d}'}" />
+                <Label Grid.Column="5" Text="{Binding Status}" LineBreakMode="TailTruncation" />
+            </Grid>
+        </DataTemplate>
 
-        <Grid ColumnDefinitions="*,*"
-                ColumnSpacing="12">
+        <!-- Phone: compact stacked “card” row -->
+        <DataTemplate x:Key="PhoneRowTemplate">
+            <Grid Padding="12" RowSpacing="4"
+                  RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
+                <!-- Kind -->
+                <Label Grid.Row="0" Grid.ColumnSpan="2"
+                       Text="{Binding Kind}"
+                       FontAttributes="Bold"/>
+
+                <!-- Title -->
+                <Label Grid.Row="1" Grid.Column="0" Text="Title" TextColor="#666" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}" LineBreakMode="TailTruncation" />
+
+                <!-- Parent -->
+                <Label Grid.Row="2" Grid.Column="0" Text="Parent" TextColor="#666" />
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Parent}" LineBreakMode="TailTruncation" />
+
+                <!-- Dates & Status -->
+                <Label Grid.Row="3" Grid.Column="0" Text="When" TextColor="#666" />
+                <HorizontalStackLayout Grid.Row="3" Grid.Column="1" Spacing="12">
+                    <Label Text="{Binding StartDate, StringFormat='{0:d}'}" />
+                    <Label Text="→" />
+                    <Label Text="{Binding EndDate,   StringFormat='{0:d}'}" />
+                    <Label Text="•" />
+                    <Label Text="{Binding Status}" />
+                </HorizontalStackLayout>
+            </Grid>
+        </DataTemplate>
+
+    </ContentPage.Resources>
+    <!-- ============================================== -->
+
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+        <Label Text="{Binding ReportTitle}" FontAttributes="Bold" FontSize="20"/>
+        <Label Text="{Binding GeneratedAt}" FontSize="12" TextColor="#666"/>
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
             <VerticalStackLayout>
-                <Label Text="From"
-                        FontSize="12"/>
+                <Label Text="From" FontSize="12"/>
                 <DatePicker Date="{Binding FromDate}"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Column="1">
-                <Label Text="To"
-                        FontSize="12"/>
+                <Label Text="To" FontSize="12"/>
                 <DatePicker Date="{Binding ToDate}"/>
             </VerticalStackLayout>
         </Grid>
 
- 
-        <HorizontalStackLayout Spacing="12"
-                Padding="12,8">
-            <Button Text="Generate New Report"
-                    Command="{Binding LoadCommand}"/>
-            <Button Text="Export CSV"
-                    Command="{Binding ExportCsvCommand}"/>
+        <HorizontalStackLayout Spacing="12" Padding="12,8">
+            <Button Text="Generate New Report" Command="{Binding LoadCommand}"/>
+            <Button Text="Export CSV" Command="{Binding ExportCsvCommand}"/>
         </HorizontalStackLayout>
 
+        <!-- ===== Table area ===== -->
+        <Grid RowDefinitions="Auto,*" ColumnDefinitions="*">
 
-        <Grid RowDefinitions="Auto, *"
-                ColumnDefinitions="*">
-
-            <Grid Padding="8"
-                    BackgroundColor="{AppThemeBinding Light=#F1F3F5, Dark=#222}">
-                <Grid ColumnDefinitions="80,*,*,120,120,100">
-                    <Label Text="Type"
-                            FontAttributes="Bold"/>
-                    <Label Grid.Column="1"
-                            Text="Title"
-                            FontAttributes="Bold"/>
-                    <Label Grid.Column="2"
-                            Text="Parent"
-                            FontAttributes="Bold"/>
-                    <Label Grid.Column="3"
-                            Text="Start"
-                            FontAttributes="Bold"/>
-                    <Label Grid.Column="4"
-                            Text="End"
-                            FontAttributes="Bold"/>
-                    <Label Grid.Column="5"
-                            Text="Status"
-                            FontAttributes="Bold"/>
-                </Grid>
-            </Grid>
-
-            <CollectionView Grid.Row="1"
-                    ItemsSource="{Binding Rows}"
-                    SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="8"
-                                ColumnDefinitions="80,*,*,120,120,100">
-                            <Label Text="{Binding Kind}"/>
-                            <Label Grid.Column="1"
-                                    Text="{Binding Title}"/>
-                            <Label Grid.Column="2"
-                                    Text="{Binding Parent}"/>
-                            <Label Grid.Column="3"
-                                    Text="{Binding StartDate, StringFormat='{0:d}'}"/>
-                            <Label Grid.Column="4"
-                                    Text="{Binding EndDate,   StringFormat='{0:d}'}"/>
-                            <Label Grid.Column="5"
-                                    Text="{Binding Status}"/>
+            <!-- Header: show full table header on Tablet/Desktop; a light hint on Phone -->
+            <OnIdiom x:TypeArguments="View">
+                <OnIdiom.Phone>
+                    <Grid Padding="8" BackgroundColor="{AppThemeBinding Light=#F1F3F5, Dark=#222}">
+                        <Label Text="Results" FontAttributes="Bold"/>
+                    </Grid>
+                </OnIdiom.Phone>
+                <OnIdiom.Tablet>
+                    <Grid Padding="8" BackgroundColor="{AppThemeBinding Light=#F1F3F5, Dark=#222}">
+                        <Grid ColumnDefinitions="80,*,*,120,120,100">
+                            <Label Text="Type"   FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="Title"   FontAttributes="Bold"/>
+                            <Label Grid.Column="2" Text="Parent"  FontAttributes="Bold"/>
+                            <Label Grid.Column="3" Text="Start"   FontAttributes="Bold"/>
+                            <Label Grid.Column="4" Text="End"     FontAttributes="Bold"/>
+                            <Label Grid.Column="5" Text="Status"  FontAttributes="Bold"/>
                         </Grid>
-                    </DataTemplate>
+                    </Grid>
+                </OnIdiom.Tablet>
+                <OnIdiom.Desktop>
+                    <Grid Padding="8" BackgroundColor="{AppThemeBinding Light=#F1F3F5, Dark=#222}">
+                        <Grid ColumnDefinitions="80,*,*,120,120,100">
+                            <Label Text="Type"   FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="Title"   FontAttributes="Bold"/>
+                            <Label Grid.Column="2" Text="Parent"  FontAttributes="Bold"/>
+                            <Label Grid.Column="3" Text="Start"   FontAttributes="Bold"/>
+                            <Label Grid.Column="4" Text="End"     FontAttributes="Bold"/>
+                            <Label Grid.Column="5" Text="Status"  FontAttributes="Bold"/>
+                        </Grid>
+                    </Grid>
+                </OnIdiom.Desktop>
+            </OnIdiom>
+
+            <!-- Rows -->
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding Rows}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <OnIdiom x:TypeArguments="DataTemplate">
+                        <OnIdiom.Phone>
+                            <StaticResource Key="PhoneRowTemplate"/>
+                        </OnIdiom.Phone>
+                        <OnIdiom.Tablet>
+                            <StaticResource Key="TabletRowTemplate"/>
+                        </OnIdiom.Tablet>
+                        <OnIdiom.Desktop>
+                            <StaticResource Key="TabletRowTemplate"/>
+                        </OnIdiom.Desktop>
+                    </OnIdiom>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
+        <!-- ===================== -->
 
     </VerticalStackLayout>
 </ContentPage>
