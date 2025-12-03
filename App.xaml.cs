@@ -10,6 +10,7 @@ public partial class App : Application
     public App(DatabaseService db)
     {
         InitializeComponent();
+        Application.Current!.UserAppTheme = AppTheme.Light;
         _db = db;
 
         MainPage = new AppShell();
